@@ -47,3 +47,6 @@ Se implementarán, al menos, los siguientes entrypoints:
 - GET devices
 - GET switches
 - POST switches/<switch_id>/connect-device/<device_id>, con un body indicando los puertos que les conectarán.
+
+## Subida
+Para considerar entregado, haz un fork de este repositorio en tu cuenta, y da acceso al mismo a info@titaniumindustrialsecurity.com como colaborador para poder revisarlo.
