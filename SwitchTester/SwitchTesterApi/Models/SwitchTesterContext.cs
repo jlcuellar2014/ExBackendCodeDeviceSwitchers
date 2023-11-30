@@ -10,6 +10,8 @@ namespace SwitchTesterApi.Models
         public DbSet<DevicePort> DevicePorts { get; set; }
         public DbSet<DeviceSwitchConnection> DeviceSwitchConnections { get; set; }
 
+        public async Task SaveChangesAsync() => await base.SaveChangesAsync();
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //  I'm sure that is not the way to do it :)

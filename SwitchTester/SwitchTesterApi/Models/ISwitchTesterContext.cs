@@ -9,5 +9,8 @@ namespace SwitchTesterApi.Models
         DbSet<DeviceSwitchConnection> DeviceSwitchConnections { get; set; }
         DbSet<Switch> Switches { get; set; }
         DbSet<SwitchPort> SwitchPorts { get; set; }
+
+        int SaveChanges();
+        Task SaveChangesAsync();
     }
 }
