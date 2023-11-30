@@ -1,9 +1,11 @@
 using SwitchTesterApi.Models;
+using SwitchTesterApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddScoped<ISwitchTesterContext,  SwitchTesterContext>();
+builder.Services.AddScoped<IDevicesService, DevicesService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
