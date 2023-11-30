@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SwitchTesterApi.DTOs;
 using SwitchTesterApi.Services;
 
 namespace SwitchTesterApi.Controllers
@@ -15,7 +16,7 @@ namespace SwitchTesterApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAsync() {
+        public async Task<ActionResult<DeviceSwitchConnectionsDTO>> GetAsync() {
             try
             {
                 var results = await service.GetDeviceConnectedAsync();
