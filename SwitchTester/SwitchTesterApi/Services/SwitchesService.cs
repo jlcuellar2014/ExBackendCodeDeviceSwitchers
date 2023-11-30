@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SwitchTesterApi.DTOs;
 using SwitchTesterApi.Models;
+using System.Diagnostics;
 
 namespace SwitchTesterApi.Services
 {
@@ -61,6 +62,51 @@ namespace SwitchTesterApi.Services
             }
 
             return response;
+        }
+
+        public async Task ConnectDeviceToSwitchAsync(int switchId, int deviceId, PortsDTO portsDTO) {
+
+            var ports = portsDTO.Ports;
+
+            await ValidateDevicePorts(deviceId, ports);
+            await ValidateSwitchPorts(switchId, ports);
+
+            foreach (var port in ports)
+            {
+                var newConnection = new DeviceSwitchConnection { 
+                    DeviceId = deviceId,
+                    SwitchId = switchId,
+                    Port = port
+                };
+
+                context.DeviceSwitchConnections.Add(newConnection);
+            }
+
+            await context.SaveChangesAsync();
+        }
+
+        private async Task ValidateDevicePorts(int deviceId, List<int> ports)
+        {
+            var portsInDevice = await context.DevicePorts
+                                             .Where(d => d.DeviceId.Equals(deviceId))
+                                             .Select(d => d.Port).ToListAsync();
+
+            var areAllInDevice = ports.All(p => portsInDevice.Contains(p));
+
+            if (!areAllInDevice)
+                throw new ArgumentOutOfRangeException("Not all ports to be connected can be managed by the device.");
+        }
+        
+        private async Task ValidateSwitchPorts(int switchId, List<int> ports)
+        {
+            var portsInSwitch = await context.SwitchPorts
+                                             .Where(a => a.SwitchId.Equals(switchId))
+                                             .Select(a => a.Port).ToListAsync();
+
+            var areAllInSwitch = ports.All(p => portsInSwitch.Contains(p));
+
+            if (!areAllInSwitch)
+                throw new ArgumentOutOfRangeException("Not all ports to be connected can be managed by the switch.");
         }
     }
 }
