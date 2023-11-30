@@ -1,6 +1,6 @@
 ﻿namespace SwitchTesterApi.DTOs
 {
-    public class GetDeviceConnectedDTO
+    public class DeviceConnectedDTO
     {
         public int DeviceId { get; set; }
         public string HostName { get; set; }

@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SwitchTesterApi.DTOs;
 using SwitchTesterApi.Models;
-using System.Diagnostics;
 
 namespace SwitchTesterApi.Services
 {
@@ -14,9 +13,9 @@ namespace SwitchTesterApi.Services
             this.context = context;
         }
 
-        public async Task<List<GetDeviceConnectionsDTO>> GetDeviceConnectedAsync()
+        public async Task<List<DeviceSwitchConnectionsDTO>> GetDeviceConnectedAsync()
         {
-            var response = new List<GetDeviceConnectionsDTO>();
+            var response = new List<DeviceSwitchConnectionsDTO>();
             var query = from c in context.DeviceSwitchConnections
                         join d in context.Devices on c.DeviceId equals d.DeviceId
                         join s in context.Switches on c.SwitchId equals s.SwitchId
@@ -39,16 +38,16 @@ namespace SwitchTesterApi.Services
 
             foreach (var group in result)
             {
-                var newDevice = new GetDeviceConnectionsDTO
+                var newDevice = new DeviceSwitchConnectionsDTO
                 {
                     DeviceId = group.Key.DeviceId,
                     HostName = group.Key.DeviceHostName,
-                    Switches = new List<GetSwitchConnectedDTO>()
+                    Switches = new List<SwitchConnectedDTO>()
                 };
 
                 foreach (var s in group)
                 {
-                    var newSwitch = new GetSwitchConnectedDTO
+                    var newSwitch = new SwitchConnectedDTO
                     {
                         SwitchId = s.SwitchId,
                         HostName = s.SwitchHostName,

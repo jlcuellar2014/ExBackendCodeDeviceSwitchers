@@ -4,6 +4,6 @@ namespace SwitchTesterApi.Services
 {
     public interface IDevicesService
     {
-        Task<List<GetDeviceConnectionsDTO>> GetDeviceConnectedAsync();
+        Task<List<DeviceSwitchConnectionsDTO>> GetDeviceConnectedAsync();
     }
 }

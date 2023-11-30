@@ -1,9 +1,9 @@
 ﻿namespace SwitchTesterApi.DTOs
 {
-    public class GetSwitchConnectionsDTO
+    public class SwitchDeviceConnectionsDTO
     {
         public int SwitchId { get; set; }
         public string HostName { get; set; }
-        public List<GetDeviceConnectedDTO> Devices { get; set; }
+        public List<DeviceConnectedDTO> Devices { get; set; }
     }
 }
