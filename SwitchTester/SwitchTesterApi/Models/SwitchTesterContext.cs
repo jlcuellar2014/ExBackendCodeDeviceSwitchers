@@ -2,7 +2,7 @@
 
 namespace SwitchTesterApi.Models
 {
-    public class SwitchTesterContext: DbContext
+    public class SwitchTesterContext : DbContext, ISwitchTesterContext
     {
         public DbSet<Switch> Switches { get; set; }
         public DbSet<Device> Devices { get; set; }
@@ -23,7 +23,7 @@ namespace SwitchTesterApi.Models
 
             modelBuilder.Entity<DevicePort>()
                 .HasKey(o => new { o.DeviceId, o.Port });
-            
+
             modelBuilder.Entity<SwitchPort>()
                 .HasKey(o => new { o.SwitchId, o.Port });
         }
