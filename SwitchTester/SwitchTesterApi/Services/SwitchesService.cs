@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SwitchTesterApi.DTOs;
 using SwitchTesterApi.Models;
+using SwitchTesterApi.Models.Contexts;
 
 namespace SwitchTesterApi.Services
 {

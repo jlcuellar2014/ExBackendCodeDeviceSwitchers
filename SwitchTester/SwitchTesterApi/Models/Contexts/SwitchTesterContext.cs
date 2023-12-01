@@ -1,9 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
-namespace SwitchTesterApi.Models
+namespace SwitchTesterApi.Models.Contexts
 {
     public class SwitchTesterContext : DbContext, ISwitchTesterContext
     {
+        private readonly IConfiguration configuration;
+
+        public SwitchTesterContext(IConfiguration configuration)
+        {
+            this.configuration = configuration;
+        }
+
         public DbSet<Switch> Switches { get; set; }
         public DbSet<Device> Devices { get; set; }
         public DbSet<SwitchPort> SwitchPorts { get; set; }
@@ -13,10 +21,7 @@ namespace SwitchTesterApi.Models
         public async Task SaveChangesAsync() => await base.SaveChangesAsync();
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            //  I'm sure that is not the way to do it :)
-            optionsBuilder.UseSqlite($"Data Source=SwitchTester.db");
-        }
+             => optionsBuilder.UseSqlite(configuration.GetConnectionString("sqlite"));
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
