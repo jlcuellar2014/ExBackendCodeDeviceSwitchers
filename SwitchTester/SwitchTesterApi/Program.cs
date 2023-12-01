@@ -1,4 +1,4 @@
-using SwitchTesterApi.Models;
+using SwitchTesterApi.Models.Contexts;
 using SwitchTesterApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace SwitchTesterApi.Models
+namespace SwitchTesterApi.Models.Contexts
 {
     public interface ISwitchTesterContext
     {
