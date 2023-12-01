@@ -22,6 +22,20 @@ namespace SwitchTesterApi.Controllers
             }
         }
 
+        [HttpPatch]
+        public async Task<IActionResult> UpdateUserAsync(ApplicationUserUpdateDTO userDTO)
+        {
+            try
+            {
+                await service.UpdateUserAsync(userDTO);
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
         [HttpPost("login")]
         public async Task<ActionResult<ApplicationUserLoginResponseDTO>> LoginUser(ApplicationUserLoginDTO userDTO)
         {
