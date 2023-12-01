@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SwitchTesterApi.DTOs;
 using SwitchTesterApi.Models;
-using System.Diagnostics;
 
 namespace SwitchTesterApi.Services
 {
@@ -82,6 +81,20 @@ namespace SwitchTesterApi.Services
                 context.DeviceSwitchConnections.Add(newConnection);
             }
 
+            await context.SaveChangesAsync();
+        }
+
+        public async Task DisconnectDeviceToSwitchAsync(int switchId, int deviceId, PortsDTO? portsDTO)
+        {
+            List<int> ports = portsDTO?.Ports ?? new List<int>();
+
+            var queryConnections = context.DeviceSwitchConnections.Where(c => c.SwitchId.Equals(switchId) && c.DeviceId.Equals(deviceId));
+
+            if (ports.Any()){
+                queryConnections = queryConnections.Where(c => ports.Contains(c.Port));
+            }
+
+            context.DeviceSwitchConnections.RemoveRange(queryConnections);
             await context.SaveChangesAsync();
         }
 

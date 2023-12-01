@@ -6,5 +6,6 @@ namespace SwitchTesterApi.Services
     {
         Task<List<SwitchDeviceConnectionsDTO>> GetSwitchConnectedAsync();
         Task ConnectDeviceToSwitchAsync(int switchId, int deviceId, PortsDTO ports);
+        Task DisconnectDeviceToSwitchAsync(int switchId, int deviceId, PortsDTO? portsDTO);
     }
 }

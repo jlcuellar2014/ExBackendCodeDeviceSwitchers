@@ -43,6 +43,18 @@ namespace SwitchTesterApi.Controllers
             }
         }
 
-
+        [HttpDelete("{switchId}/connect-device/{deviceId}")]
+        public async Task<IActionResult> DisconnectDeviceToSwitchAsync(int switchId, int deviceId, PortsDTO? ports)
+        {
+            try
+            {
+                await service.DisconnectDeviceToSwitchAsync(switchId, deviceId, ports);
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
     }
 }
