@@ -107,7 +107,7 @@ namespace SwitchTesterApi.Services
             var areAllInDevice = ports.All(p => portsInDevice.Contains(p));
 
             if (!areAllInDevice)
-                throw new ArgumentOutOfRangeException("Not all ports to be connected can be managed by the device.");
+                throw new ArgumentOutOfRangeException(nameof(ports), "Not all ports to be connected can be managed by the device.");
         }
         
         private async Task ValidateSwitchPorts(int switchId, List<int> ports)
@@ -119,7 +119,7 @@ namespace SwitchTesterApi.Services
             var areAllInSwitch = ports.All(p => portsInSwitch.Contains(p));
 
             if (!areAllInSwitch)
-                throw new ArgumentOutOfRangeException("Not all ports to be connected can be managed by the switch.");
+                throw new ArgumentOutOfRangeException(nameof(ports), "Not all ports to be connected can be managed by the switch.");
         }
     }
 }

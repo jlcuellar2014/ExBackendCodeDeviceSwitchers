@@ -4,6 +4,6 @@
     {
         public int SwitchId { get; set; }
         public int Port { get; set; }
-        public Switch Switch { get; set; }
+        public Switch? Switch { get; set; }
     }
 }
