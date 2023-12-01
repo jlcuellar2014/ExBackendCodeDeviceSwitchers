@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SwitchTesterApi.Models;
+using SwitchTesterApi.Models.Contexts;
 
 #nullable disable
 
@@ -28,7 +28,7 @@ namespace SwitchTesterApi.Migrations
 
                     b.HasKey("DeviceId");
 
-                    b.ToTable("Devices");
+                    b.ToTable("Devices", (string)null);
                 });
 
             modelBuilder.Entity("SwitchTesterApi.Models.DevicePort", b =>
@@ -41,7 +41,7 @@ namespace SwitchTesterApi.Migrations
 
                     b.HasKey("DeviceId", "Port");
 
-                    b.ToTable("DevicePorts");
+                    b.ToTable("DevicePorts", (string)null);
                 });
 
             modelBuilder.Entity("SwitchTesterApi.Models.DeviceSwitchConnection", b =>
@@ -59,7 +59,7 @@ namespace SwitchTesterApi.Migrations
 
                     b.HasIndex("SwitchId");
 
-                    b.ToTable("DeviceSwitchConnections");
+                    b.ToTable("DeviceSwitchConnections", (string)null);
                 });
 
             modelBuilder.Entity("SwitchTesterApi.Models.Switch", b =>
@@ -74,7 +74,7 @@ namespace SwitchTesterApi.Migrations
 
                     b.HasKey("SwitchId");
 
-                    b.ToTable("Switches");
+                    b.ToTable("Switches", (string)null);
                 });
 
             modelBuilder.Entity("SwitchTesterApi.Models.SwitchPort", b =>
@@ -87,7 +87,7 @@ namespace SwitchTesterApi.Migrations
 
                     b.HasKey("SwitchId", "Port");
 
-                    b.ToTable("SwitchPorts");
+                    b.ToTable("SwitchPorts", (string)null);
                 });
 
             modelBuilder.Entity("SwitchTesterApi.Models.DevicePort", b =>
