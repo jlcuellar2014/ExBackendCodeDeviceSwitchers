@@ -9,6 +9,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace SwitchTesterApi.Services
 {
@@ -19,6 +20,9 @@ namespace SwitchTesterApi.Services
 
         public async Task CreateUserAsync(ApplicationUserCreateDTO userDTO)
         {
+            CheckUserNameFormat(userDTO.UserName);
+            CheckPasswordFormat(userDTO.Password);
+
             var salt = GenerateSalt();
             var passwordHash = GeneratePasswordHash(userDTO.Password, salt);
 
@@ -36,13 +40,14 @@ namespace SwitchTesterApi.Services
 
         public async Task UpdateUserAsync(ApplicationUserUpdateDTO userDTO)
         {
+            CheckPasswordFormat(userDTO.NewPassword);
+
             var userDb = await context.ApplicationUsers
                                       .FirstOrDefaultAsync(u => u.UserName.Equals(userDTO.UserName)) 
                                         ?? throw new ArgumentException("The user with the assigned credentials does not exist.", nameof(userDTO));
 
-            if (!IsPasswordCorrect(userDTO.OldPassword, userDb.Salt, userDb.PasswordHash))
-                throw new ArgumentException("The password assigned to perform the operation is incorrect.", nameof(userDTO));
-            
+            CheckIfPasswordCorrect(userDTO.OldPassword, userDb.Salt, userDb.PasswordHash);
+
             var newSalt = GenerateSalt();
             var newPassHash = GeneratePasswordHash(userDTO.NewPassword, newSalt);
 
@@ -58,17 +63,37 @@ namespace SwitchTesterApi.Services
                                 .FirstOrDefaultAsync(u => u.UserName.Equals(userDTO.UserName)) ?? 
                                     throw new ArgumentException("The user does not exist in the system.", nameof(userDTO));
 
-            var validPassword = IsPasswordCorrect(userDTO.Password, userDb.Salt, userDb.PasswordHash);
+            CheckIfPasswordCorrect(userDTO.Password, userDb.Salt, userDb.PasswordHash);
 
-            return validPassword ? GenerateToken(userDb)
-                                    : throw new ArgumentException("User credentials are incorrect.", nameof(userDTO));
+            return GenerateToken(userDb);
         }
 
-        private static bool IsPasswordCorrect(string enteredPassword, byte[] storedSalt, byte[] storedPasswordHash)
+        private static void CheckIfPasswordCorrect(string enteredPassword, byte[] storedSalt, byte[] storedPasswordHash)
         {
             var enteredPassHash = GeneratePasswordHash(enteredPassword, storedSalt);
 
-            return storedPasswordHash.SequenceEqual(enteredPassHash);
+            if(!storedPasswordHash.SequenceEqual(enteredPassHash))
+                throw new ArgumentException("The password assigned to perform the operation is incorrect.", nameof(enteredPassword));
+        }
+
+        private static void CheckUserNameFormat(string userName)
+        {
+            // The username only contains lowercase letters, uppercase letters, 
+            // numbers and the special character _, and has a minimum length of 5 
+            // and a maximum of 30
+
+            if (!Regex.IsMatch(userName, "^[a-zA-Z0-9_]{5,30}$"))
+                throw new ArgumentException("The username does not comply with established policies", nameof(userName));
+        }
+
+        private static void CheckPasswordFormat(string userPassword)
+        {
+            // This expression requires at least one lowercase letter, 
+            // one uppercase letter, one number, and one special character, 
+            // and must be at least 8 characters long
+
+            if (!Regex.IsMatch(userPassword, "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^a-zA-Z\\d]).{8,}$"))
+                throw new ArgumentException("The password does not comply with established policies", nameof(userPassword));
         }
 
         private static byte[] GenerateSalt()
