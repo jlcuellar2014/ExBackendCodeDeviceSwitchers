@@ -2,16 +2,16 @@
 
 namespace SwitchTesterApi.Models.Contexts
 {
-    public class SegurityContext : DbContext, ISegurityContext
+    public class SecurityContext : DbContext, ISecurityContext
     {
         private readonly IConfiguration configuration;
 
-        public SegurityContext(IConfiguration configuration)
+        public SecurityContext(IConfiguration configuration)
         {
             this.configuration = configuration;
         }
 
-        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<User> ApplicationUsers { get; set; }
 
         public async Task SaveChangesAsync() => await base.SaveChangesAsync();
 
@@ -20,7 +20,7 @@ namespace SwitchTesterApi.Models.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ApplicationUser>()
+            modelBuilder.Entity<User>()
                .HasKey(o => new { o.UserName });
         }
     }

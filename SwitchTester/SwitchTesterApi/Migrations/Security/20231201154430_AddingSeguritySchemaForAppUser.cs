@@ -2,10 +2,10 @@
 
 #nullable disable
 
-namespace SwitchTesterApi.Migrations.Segurity
+namespace SwitchTesterApi.Migrations.Security
 {
     /// <inheritdoc />
-    public partial class AddingSeguritySchemaForAppUser : Migration
+    public partial class AddingSecuritySchemaForAppUser : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -1,19 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SwitchTesterApi.DTOs;
 using SwitchTesterApi.Services;
 
 namespace SwitchTesterApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class SwitchesController : ControllerBase
+    public class SwitchesController(ISwitchesService service) : ControllerBase
     {
-        private readonly ISwitchesService service;
-
-        public SwitchesController(ISwitchesService service)
-        {
-            this.service = service;
-        }
+        private readonly ISwitchesService service = service;
 
         [HttpGet]
         public async Task<ActionResult<SwitchDeviceConnectionsDTO>> GetAsync()

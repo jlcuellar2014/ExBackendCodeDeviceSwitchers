@@ -7,11 +7,11 @@ using SwitchTesterApi.Models.Contexts;
 
 #nullable disable
 
-namespace SwitchTesterApi.Migrations.Segurity
+namespace SwitchTesterApi.Migrations.Security
 {
-    [DbContext(typeof(SegurityContext))]
-    [Migration("20231201154430_AddingSeguritySchemaForAppUser")]
-    partial class AddingSeguritySchemaForAppUser
+    [DbContext(typeof(SecurityContext))]
+    [Migration("20231201154430_AddingSecuritySchemaForAppUser")]
+    partial class AddingSecuritySchemaForAppUser
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

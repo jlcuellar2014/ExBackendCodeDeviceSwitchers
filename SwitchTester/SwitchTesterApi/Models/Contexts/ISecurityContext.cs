@@ -2,9 +2,9 @@
 
 namespace SwitchTesterApi.Models.Contexts
 {
-    public interface ISegurityContext
+    public interface ISecurityContext
     {
-        DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        DbSet<User> ApplicationUsers { get; set; }
 
         Task SaveChangesAsync();
     }
