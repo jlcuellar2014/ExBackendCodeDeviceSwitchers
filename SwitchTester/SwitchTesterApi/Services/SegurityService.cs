@@ -55,7 +55,7 @@ namespace SwitchTesterApi.Services
         public async Task<string> LoginUserAsync(ApplicationUserLoginDTO userDTO)
         {
             var userDb = await context.ApplicationUsers
-                                .FirstOrDefaultAsync(u => u.UserName.Equals(userDTO.UserName, StringComparison.Ordinal)) ?? 
+                                .FirstOrDefaultAsync(u => u.UserName.Equals(userDTO.UserName)) ?? 
                                     throw new ArgumentException("The user does not exist in the system.", nameof(userDTO));
 
             var validPassword = IsPasswordCorrect(userDTO.Password, userDb.Salt, userDb.PasswordHash);
