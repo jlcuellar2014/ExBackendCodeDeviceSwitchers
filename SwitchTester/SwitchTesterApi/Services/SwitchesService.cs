@@ -57,8 +57,8 @@ namespace SwitchTesterApi.Services
             return response;
         }
 
-        public async Task ConnectDeviceToSwitchAsync(int switchId, int deviceId, PortsDTO portsDTO) {
-
+        public async Task ConnectDeviceToSwitchAsync(int switchId, int deviceId, PortsDTO portsDTO)
+        {
             var ports = portsDTO.Ports;
 
             await ValidateDevicePorts(deviceId, ports);
@@ -72,7 +72,16 @@ namespace SwitchTesterApi.Services
                     Port = port
                 };
 
-                context.DeviceSwitchConnections.Add(newConnection);
+                try
+                {
+                    context.DeviceSwitchConnections.Add(newConnection);
+                }
+                catch (Exception ex)
+                {
+                    throw new ArgumentOutOfRangeException(
+                        "The switch does not support more than one device connection per port.", nameof(portsDTO));
+                }
+                
             }
 
             await context.SaveChangesAsync();
