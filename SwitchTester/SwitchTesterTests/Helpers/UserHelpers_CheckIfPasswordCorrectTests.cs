@@ -13,7 +13,8 @@
             byte[] storedPasswordHash = Convert.FromBase64String("RBxnZ8dlZw9Axj/5GigoYji3QjD65tz42t9t/v9/H7M=");
 
             // Act & Assert
-            Assert.DoesNotThrow(() => UserHelpers.CheckIfPasswordCorrect(enteredPassword, storedSalt, storedPasswordHash));
+            Assert.DoesNotThrow(() 
+                => UserHelpers.CheckIfPasswordCorrect(enteredPassword, storedSalt, storedPasswordHash));
         }
 
         [Test]
@@ -26,8 +27,11 @@
             byte[] storedPasswordHash = Convert.FromBase64String("RBxnZ8dlZw9Axj/5GigoYji3QjD65tz42t9t/v9/H7M=");
 
             // Act & Assert
-            var ex = Assert.Throws<ArgumentException>(() => UserHelpers.CheckIfPasswordCorrect(enteredPassword, storedSalt, storedPasswordHash));
-            StringAssert.Contains("The password assigned to perform the operation is incorrect.", ex.Message);
+            var ex = Assert.Throws<ArgumentException>(() 
+                => UserHelpers.CheckIfPasswordCorrect(enteredPassword, storedSalt, storedPasswordHash));
+
+            Assert.That(ex.Message, 
+                Does.Contain("The password assigned to perform the operation is incorrect."));
         }
 
         [Test]
@@ -40,8 +44,11 @@
             byte[] storedPasswordHash = Convert.FromBase64String("RBxnZ8dlZw9Axj/5GigoYji3QjD65tz42t9t/v9/H7M=");
 
             // Act & Assert
-            var ex = Assert.Throws<ArgumentException>(() => UserHelpers.CheckIfPasswordCorrect(enteredPassword, storedSalt, storedPasswordHash));
-            StringAssert.Contains("The password assigned to perform the operation is incorrect.", ex.Message);
+            var ex = Assert.Throws<ArgumentException>(() 
+                => UserHelpers.CheckIfPasswordCorrect(enteredPassword, storedSalt, storedPasswordHash));
+
+            Assert.That(ex.Message, 
+                Does.Contain("The password assigned to perform the operation is incorrect."));
         }
     }
 }

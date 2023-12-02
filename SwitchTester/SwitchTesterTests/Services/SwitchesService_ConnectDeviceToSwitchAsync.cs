@@ -17,39 +17,41 @@ namespace Tests.Services
 
             var switchId = 1;
             var deviceId = 1;
-            var portsDTO = new PortsDTO { Ports = new List<int> { 1, 2, 3 } };
+            var portsDTO = new PortsDTO { Ports = [1, 2, 3] };
 
             fakeContext.Devices.Add(new Device
             {
                 DeviceId = deviceId,
                 HostName = "Device Host Name",
-                Ports = new List<DevicePort> {
-                    new DevicePort{ DeviceId = deviceId, Port = 1 },
-                    new DevicePort{ DeviceId = deviceId, Port = 2 },
-                    new DevicePort{ DeviceId = deviceId, Port = 3 },
-                }
+                Ports = [
+                    new() { DeviceId = deviceId, Port = 1 },
+                    new() { DeviceId = deviceId, Port = 2 },
+                    new() { DeviceId = deviceId, Port = 3 }
+                ]
             });
 
             fakeContext.Switches.Add(new Switch
             {
                 SwitchId = switchId,
                 HostName = "Switch Host Name",
-                Ports = new List<SwitchPort> {
-                    new SwitchPort {  SwitchId = switchId, Port = 1},
-                    new SwitchPort {  SwitchId = switchId, Port = 2},
-                    new SwitchPort {  SwitchId = switchId, Port = 3},
-                }
+                Ports = [
+                    new() { SwitchId = switchId, Port = 1 },
+                    new() { SwitchId = switchId, Port = 2 },
+                    new() { SwitchId = switchId, Port = 3 }
+                ]
             });
 
             await fakeContext.SaveChangesAsync();
 
             // Act & Asset
-            Assert.DoesNotThrowAsync(async() => await switchesService.ConnectDeviceToSwitchAsync(switchId, deviceId, portsDTO));
+            Assert.DoesNotThrowAsync(async() 
+                => await switchesService.ConnectDeviceToSwitchAsync(switchId, deviceId, portsDTO));
 
-            Assert.IsTrue(fakeContext.DeviceSwitchConnections
-                                     .All(c => portsDTO.Ports.Contains(c.Port) 
-                                               && c.DeviceId.Equals(deviceId) 
-                                               && c.SwitchId.Equals(switchId)));
+            Assert.That(fakeContext.DeviceSwitchConnections
+                                   .All(c => portsDTO.Ports.Contains(c.Port) 
+                                             && c.DeviceId.Equals(deviceId) 
+                                             && c.SwitchId.Equals(switchId)),
+                        Is.True);
         }
 
         [Test]
@@ -61,28 +63,28 @@ namespace Tests.Services
 
             var switchId = 1;
             var deviceId = 1;
-            var portsDTO = new PortsDTO { Ports = new List<int> { 2, 3 } };
+            var portsDTO = new PortsDTO { Ports = [2, 3] };
 
             fakeContext.Devices.Add(new Device
             {
                 DeviceId = deviceId,
                 HostName = "Device Host Name",
-                Ports = new List<DevicePort> {
-                    new DevicePort{ DeviceId = deviceId, Port = 1 },
-                    new DevicePort{ DeviceId = deviceId, Port = 2 },
-                    new DevicePort{ DeviceId = deviceId, Port = 3 },
-                }
+                Ports = [
+                    new() { DeviceId = deviceId, Port = 1 },
+                    new() { DeviceId = deviceId, Port = 2 },
+                    new() { DeviceId = deviceId, Port = 3 },
+                ]
             });
 
             fakeContext.Switches.Add(new Switch
             {
                 SwitchId = switchId,
                 HostName = "Switch Host Name",
-                Ports = new List<SwitchPort> {
-                    new SwitchPort {  SwitchId = switchId, Port = 1},
-                    new SwitchPort {  SwitchId = switchId, Port = 2},
-                    new SwitchPort {  SwitchId = switchId, Port = 3},
-                }
+                Ports = [
+                    new() { SwitchId = switchId, Port = 1 },
+                    new() { SwitchId = switchId, Port = 2 },
+                    new() { SwitchId = switchId, Port = 3 },
+                ]
             });
 
             fakeContext.DeviceSwitchConnections.AddRange(
@@ -92,13 +94,14 @@ namespace Tests.Services
             await fakeContext.SaveChangesAsync();
 
             // Act & Asset
-            Assert.DoesNotThrowAsync(async () => await switchesService.ConnectDeviceToSwitchAsync(switchId, deviceId, portsDTO));
+            Assert.DoesNotThrowAsync(async () 
+                => await switchesService.ConnectDeviceToSwitchAsync(switchId, deviceId, portsDTO));
 
             Assert.That(fakeContext.DeviceSwitchConnections
                                    .Where(c => portsDTO.Ports.Contains(c.Port)
                                                     && c.DeviceId.Equals(deviceId)
                                                     && c.SwitchId.Equals(switchId)).Count(),
-                                    Is.EqualTo(portsDTO.Ports.Count()));
+                        Is.EqualTo(portsDTO.Ports.Count));
         }
 
         [Test]
@@ -110,47 +113,53 @@ namespace Tests.Services
 
             var switchId = 1;
             var deviceId = 1;
-            var portsDTO = new PortsDTO { Ports = new List<int> { 1, 2, 3 } };
+            var portsDTO = new PortsDTO { Ports = [1, 2, 3] };
 
             fakeContext.Devices.Add(new Device
             {
                 DeviceId = deviceId,
                 HostName = "Device Host Name",
-                Ports = new List<DevicePort> {
-                    new DevicePort{ DeviceId = deviceId, Port = 1 },
-                    new DevicePort{ DeviceId = deviceId, Port = 2 },
-                    new DevicePort{ DeviceId = deviceId, Port = 3 },
-                }
+                Ports = [
+                    new() { DeviceId = deviceId, Port = 1 },
+                    new() { DeviceId = deviceId, Port = 2 },
+                    new() { DeviceId = deviceId, Port = 3 }
+                ]
             });
 
             fakeContext.Switches.Add(new Switch
             {
                 SwitchId = switchId,
                 HostName = "Switch Host Name",
-                Ports = new List<SwitchPort> {
-                    new SwitchPort {  SwitchId = switchId, Port = 1},
-                    new SwitchPort {  SwitchId = switchId, Port = 2},
-                    new SwitchPort {  SwitchId = switchId, Port = 3},
-                }
+                Ports = [
+                    new() {  SwitchId = switchId, Port = 1},
+                    new() {  SwitchId = switchId, Port = 2},
+                    new() {  SwitchId = switchId, Port = 3}
+                ]
             });
 
             fakeContext.DeviceSwitchConnections.AddRange(
-                new DeviceSwitchConnection { DeviceId = deviceId, SwitchId = switchId, Port = 1 },
-                new DeviceSwitchConnection { DeviceId = deviceId, SwitchId = switchId, Port = 2 },
-                new DeviceSwitchConnection { DeviceId = deviceId, SwitchId = switchId, Port = 3 }
+                new() { DeviceId = deviceId, SwitchId = switchId, Port = 1 },
+                new() { DeviceId = deviceId, SwitchId = switchId, Port = 2 },
+                new() { DeviceId = deviceId, SwitchId = switchId, Port = 3 }
             );
 
             await fakeContext.SaveChangesAsync();
 
             // Act & Asset
-            var ex = Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () => await switchesService.ConnectDeviceToSwitchAsync(switchId, deviceId, portsDTO));
+            var ex = Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () 
+                => await switchesService.ConnectDeviceToSwitchAsync(switchId, deviceId, portsDTO));
+            
+            Assert.Multiple(() =>
+            {
+                Assert.That(ex.Message,
+                    Does.Contain("he switch does not support more than one device connection per port."));
 
-            Assert.IsTrue(ex.Message.Contains("he switch does not support more than one device connection per port."));
-
-            Assert.IsTrue(fakeContext.DeviceSwitchConnections
-                                     .Any(c => portsDTO.Ports.Contains(c.Port) 
-                                               && c.DeviceId.Equals(deviceId) 
-                                               && c.SwitchId.Equals(switchId)));
+                Assert.That(fakeContext.DeviceSwitchConnections
+                                         .Any(c => portsDTO.Ports.Contains(c.Port)
+                                                   && c.DeviceId.Equals(deviceId)
+                                                   && c.SwitchId.Equals(switchId)),
+                            Is.True);
+            });
         }
 
         [Test]
@@ -162,28 +171,28 @@ namespace Tests.Services
 
             var switchId = 1;
             var deviceId = 1;
-            var portsDTO = new PortsDTO { Ports = new List<int> { -1, 0, 42 } }; // Invalid ports
+            var portsDTO = new PortsDTO { Ports = [-1, 0, 42] }; // Invalid ports
 
             fakeContext.Devices.Add(new Device
             {
                 DeviceId = deviceId,
                 HostName = "Device Host Name",
-                Ports = new List<DevicePort> {
-                    new DevicePort{ DeviceId = deviceId, Port = 1 },
-                    new DevicePort{ DeviceId = deviceId, Port = 2 },
-                    new DevicePort{ DeviceId = deviceId, Port = 3 },
-                }
+                Ports = [
+                    new() { DeviceId = deviceId, Port = 1 },
+                    new() { DeviceId = deviceId, Port = 2 },
+                    new() { DeviceId = deviceId, Port = 3 }
+                ]
             });
 
             fakeContext.Switches.Add(new Switch
             {
                 SwitchId = switchId,
                 HostName = "Switch Host Name",
-                Ports = new List<SwitchPort> {
-                    new SwitchPort {  SwitchId = switchId, Port = 1},
-                    new SwitchPort {  SwitchId = switchId, Port = 2},
-                    new SwitchPort {  SwitchId = switchId, Port = 3},
-                }
+                Ports = [
+                    new() { SwitchId = switchId, Port = 1 },
+                    new() { SwitchId = switchId, Port = 2 },
+                    new() { SwitchId = switchId, Port = 3 }
+                ]
             });
 
             await fakeContext.SaveChangesAsync();
@@ -192,7 +201,7 @@ namespace Tests.Services
             var ex = Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () 
                 => await switchesService.ConnectDeviceToSwitchAsync(switchId, deviceId, portsDTO));
 
-            Assert.IsTrue(ex.Message.Contains("Not all ports to be connected can be managed by the device."));
+            Assert.That(ex.Message, Does.Contain("Not all ports to be connected can be managed by the device."));
         }
 
         [Test]
@@ -204,26 +213,24 @@ namespace Tests.Services
 
             var switchId = 1;
             var deviceId = 1;
-            var portsDTO = new PortsDTO { Ports = new List<int> { 1, 2, 3 } };
+            var portsDTO = new PortsDTO { Ports = [1, 2, 3] };
 
             fakeContext.Devices.Add(new Device
             {
                 DeviceId = deviceId,
                 HostName = "Device Host Name",
-                Ports = new List<DevicePort> {
-                    new DevicePort{ DeviceId = deviceId, Port = 1 },
-                    new DevicePort{ DeviceId = deviceId, Port = 2 },
-                    new DevicePort{ DeviceId = deviceId, Port = 3 },
-                }
+                Ports = [
+                    new() { DeviceId = deviceId, Port = 1 },
+                    new() { DeviceId = deviceId, Port = 2 },
+                    new() { DeviceId = deviceId, Port = 3 },
+                ]
             });
 
             fakeContext.Switches.Add(new Switch
             {
                 SwitchId = switchId,
                 HostName = "Switch Host Name",
-                Ports = new List<SwitchPort> {
-                    new SwitchPort {  SwitchId = switchId, Port = 1},
-                }
+                Ports = [ new() { SwitchId = switchId, Port = 1}]
             });
 
             await fakeContext.SaveChangesAsync();
@@ -232,7 +239,7 @@ namespace Tests.Services
             var ex = Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () 
                 => await switchesService.ConnectDeviceToSwitchAsync(switchId, deviceId, portsDTO));
 
-            Assert.IsTrue(ex.Message.Contains("Not all ports to be connected can be managed by the switch."));
+            Assert.That(ex.Message, Does.Contain("Not all ports to be connected can be managed by the switch."));
         }
     }
 }

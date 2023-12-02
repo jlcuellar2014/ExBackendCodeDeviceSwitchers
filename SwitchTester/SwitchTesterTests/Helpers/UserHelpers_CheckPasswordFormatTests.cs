@@ -10,7 +10,8 @@
             string validPassword = "StrongP@ssword123";
 
             // Act & Assert
-            Assert.DoesNotThrow(() => UserHelpers.CheckPasswordFormat(validPassword));
+            Assert.DoesNotThrow(() 
+                => UserHelpers.CheckPasswordFormat(validPassword));
         }
 
         [Test]
@@ -20,8 +21,11 @@
             string invalidPassword = "UPPERCASE123!";
 
             // Act & Assert
-            var ex = Assert.Throws<ArgumentException>(() => UserHelpers.CheckPasswordFormat(invalidPassword));
-            StringAssert.Contains("The password does not comply with established policies", ex.Message);
+            var ex = Assert.Throws<ArgumentException>(() 
+                => UserHelpers.CheckPasswordFormat(invalidPassword));
+
+            Assert.That(ex.Message, 
+                Does.Contain("The password does not comply with established policies"));
         }
 
         [Test]
@@ -31,8 +35,11 @@
             string invalidPassword = "lowercase123!";
 
             // Act & Assert
-            var ex = Assert.Throws<ArgumentException>(() => UserHelpers.CheckPasswordFormat(invalidPassword));
-            StringAssert.Contains("The password does not comply with established policies", ex.Message);
+            var ex = Assert.Throws<ArgumentException>(() 
+                => UserHelpers.CheckPasswordFormat(invalidPassword));
+
+            Assert.That(ex.Message, 
+                Does.Contain("The password does not comply with established policies"));
         }
 
         [Test]
@@ -42,8 +49,11 @@
             string invalidPassword = "NoNumber@UpperCase";
 
             // Act & Assert
-            var ex = Assert.Throws<ArgumentException>(() => UserHelpers.CheckPasswordFormat(invalidPassword));
-            StringAssert.Contains("The password does not comply with established policies", ex.Message);
+            var ex = Assert.Throws<ArgumentException>(() 
+                => UserHelpers.CheckPasswordFormat(invalidPassword));
+
+            Assert.That(ex.Message, 
+                Does.Contain("The password does not comply with established policies"));
         }
 
         [Test]
@@ -53,8 +63,11 @@
             string invalidPassword = "SpecialCharacter123";
 
             // Act & Assert
-            var ex = Assert.Throws<ArgumentException>(() => UserHelpers.CheckPasswordFormat(invalidPassword));
-            StringAssert.Contains("The password does not comply with established policies", ex.Message);
+            var ex = Assert.Throws<ArgumentException>(() 
+                => UserHelpers.CheckPasswordFormat(invalidPassword));
+
+            Assert.That(ex.Message, 
+                Does.Contain("The password does not comply with established policies"));
         }
 
         [Test]
@@ -64,8 +77,11 @@
             string invalidPassword = "ShrP@1";
 
             // Act & Assert
-            var ex = Assert.Throws<ArgumentException>(() => UserHelpers.CheckPasswordFormat(invalidPassword));
-            StringAssert.Contains("The password does not comply with established policies", ex.Message);
+            var ex = Assert.Throws<ArgumentException>(() 
+                => UserHelpers.CheckPasswordFormat(invalidPassword));
+
+            Assert.That(ex.Message, 
+                Does.Contain("The password does not comply with established policies"));
         }
     }
 }

@@ -49,8 +49,10 @@ namespace Tests.Services
             var userService = new UsersService(mockContext.Object);
 
             // Act & Assert
-            var ex = Assert.ThrowsAsync<ArgumentException>(async () => await userService.CreateUserAsync(userDTO));
-            StringAssert.Contains("The username does not comply with established policies", ex.Message);
+            var ex = Assert.ThrowsAsync<ArgumentException>(async () 
+                => await userService.CreateUserAsync(userDTO));
+
+            Assert.That(ex.Message, Does.Contain("The username does not comply with established policies"));
         }
 
         [Test]
@@ -67,8 +69,10 @@ namespace Tests.Services
             var userService = new UsersService(mockContext.Object);
 
             // Act & Assert
-            var ex = Assert.ThrowsAsync<ArgumentException>(async () => await userService.CreateUserAsync(userDTO));
-            StringAssert.Contains("The password does not comply with established policies", ex.Message);
+            var ex = Assert.ThrowsAsync<ArgumentException>(async () 
+                => await userService.CreateUserAsync(userDTO));
+
+            Assert.That(ex.Message, Does.Contain("The password does not comply with established policies"));
         }
     }
 }

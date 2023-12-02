@@ -20,17 +20,18 @@ namespace Tests.Services
             var portsDTO = new PortsDTO { Ports = null };
 
             fakeContext.DeviceSwitchConnections.AddRange(
-                 new DeviceSwitchConnection { DeviceId = deviceId, SwitchId = switchId, Port = 1 },
-                 new DeviceSwitchConnection { DeviceId = deviceId, SwitchId = switchId, Port = 2 },
-                 new DeviceSwitchConnection { DeviceId = deviceId, SwitchId = switchId, Port = 3 }
+                 new() { DeviceId = deviceId, SwitchId = switchId, Port = 1 },
+                 new() { DeviceId = deviceId, SwitchId = switchId, Port = 2 },
+                 new() { DeviceId = deviceId, SwitchId = switchId, Port = 3 }
              );
 
             await fakeContext.SaveChangesAsync();
 
             // Act & Assert
-            Assert.DoesNotThrowAsync(async () => await switchesService.DisconnectDeviceToSwitchAsync(switchId, deviceId, portsDTO));
+            Assert.DoesNotThrowAsync(async () 
+                => await switchesService.DisconnectDeviceToSwitchAsync(switchId, deviceId, portsDTO));
 
-            Assert.IsEmpty(fakeContext.DeviceSwitchConnections);
+            Assert.That(fakeContext.DeviceSwitchConnections, Is.Empty);
         }
 
         [Test]
@@ -42,27 +43,31 @@ namespace Tests.Services
 
             var switchId = 1;
             var deviceId = 1;
-            var portsDTO = new PortsDTO { Ports = new List<int> { 1, 2 } };
+            var portsDTO = new PortsDTO { Ports = [1, 2] };
 
             fakeContext.DeviceSwitchConnections.AddRange(
-                 new DeviceSwitchConnection { DeviceId = deviceId, SwitchId = switchId, Port = 1 },
-                 new DeviceSwitchConnection { DeviceId = deviceId, SwitchId = switchId, Port = 2 },
-                 new DeviceSwitchConnection { DeviceId = deviceId, SwitchId = switchId, Port = 3 }
+                 new() { DeviceId = deviceId, SwitchId = switchId, Port = 1 },
+                 new() { DeviceId = deviceId, SwitchId = switchId, Port = 2 },
+                 new() { DeviceId = deviceId, SwitchId = switchId, Port = 3 }
              );
 
             await fakeContext.SaveChangesAsync();
 
             // Act & Assert
-            await switchesService.DisconnectDeviceToSwitchAsync(switchId, deviceId, portsDTO);
+            Assert.Multiple(() =>
+            {
+                Assert.DoesNotThrowAsync(async ()
+                                => await switchesService.DisconnectDeviceToSwitchAsync(switchId, deviceId, portsDTO));
 
-            Assert.DoesNotThrowAsync(async () => await switchesService.DisconnectDeviceToSwitchAsync(switchId, deviceId, portsDTO));
+                Assert.That(fakeContext.DeviceSwitchConnections, Is.Not.Empty);
 
-            Assert.IsNotEmpty(fakeContext.DeviceSwitchConnections);
-            Assert.That(fakeContext.DeviceSwitchConnections.Count(), Is.EqualTo(1));
-            Assert.IsTrue(fakeContext.DeviceSwitchConnections
-                                     .All(c => !portsDTO.Ports.Contains(c.Port)
-                                               && c.DeviceId.Equals(deviceId)
-                                               && c.SwitchId.Equals(switchId)));
+                Assert.That(fakeContext.DeviceSwitchConnections.Count(), Is.EqualTo(1));
+
+                Assert.That(fakeContext.DeviceSwitchConnections
+                                         .All(c => !portsDTO.Ports.Contains(c.Port)
+                                                   && c.DeviceId.Equals(deviceId)
+                                                   && c.SwitchId.Equals(switchId)), Is.True);
+            });
         }
 
         [Test]
@@ -85,7 +90,9 @@ namespace Tests.Services
             await fakeContext.SaveChangesAsync();
 
             // Act & Assert
-            Assert.DoesNotThrowAsync(async () => await switchesService.DisconnectDeviceToSwitchAsync(switchId, deviceId, portsDTO));
+            Assert.DoesNotThrowAsync(async () 
+                => await switchesService.DisconnectDeviceToSwitchAsync(switchId, deviceId, portsDTO));
+
             Assert.That(fakeContext.DeviceSwitchConnections.Count(), Is.EqualTo(3));
         }
     }

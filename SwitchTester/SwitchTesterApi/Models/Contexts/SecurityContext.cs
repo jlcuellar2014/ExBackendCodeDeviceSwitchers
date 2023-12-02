@@ -2,15 +2,8 @@
 
 namespace SwitchTesterApi.Models.Contexts
 {
-    public class SecurityContext : DbContext, ISecurityContext
+    public class SecurityContext(IConfiguration configuration) : DbContext, ISecurityContext
     {
-        private readonly IConfiguration configuration;
-
-        public SecurityContext(IConfiguration configuration)
-        {
-            this.configuration = configuration;
-        }
-
         public DbSet<User> ApplicationUsers { get; set; }
 
         public async Task SaveChangesAsync() => await base.SaveChangesAsync();

@@ -38,7 +38,8 @@ namespace Tests.Services
             await context.SaveChangesAsync();
 
             // Act & Assert
-            Assert.DoesNotThrowAsync(async () => await userService.UpdateUserAsync(userDTO));
+            Assert.DoesNotThrowAsync(async () 
+                => await userService.UpdateUserAsync(userDTO));
         }
 
         [Test]
@@ -57,8 +58,11 @@ namespace Tests.Services
             var userService = new UsersService(context);
 
             // Act & Assert
-            var ex = Assert.ThrowsAsync<ArgumentException>(async () => await userService.UpdateUserAsync(userDTO));
-            StringAssert.Contains("The user with the assigned credentials does not exist.", ex.Message);
+            var ex = Assert.ThrowsAsync<ArgumentException>(async ()
+                    => await userService.UpdateUserAsync(userDTO));
+
+            Assert.That(ex.Message,
+                Does.Contain("The user with the assigned credentials does not exist."));
         }
 
         [Test]
@@ -87,8 +91,10 @@ namespace Tests.Services
             await context.SaveChangesAsync();
 
             // Act & Assert
-            var ex = Assert.ThrowsAsync<ArgumentException>(async () => await userService.UpdateUserAsync(userDTO));
-            StringAssert.Contains("The password assigned to perform the operation is incorrect.", ex.Message);
+            var ex = Assert.ThrowsAsync<ArgumentException>(async () 
+                => await userService.UpdateUserAsync(userDTO));
+
+            Assert.That(ex.Message, Does.Contain("The password assigned to perform the operation is incorrect."));
         }
     }
 }

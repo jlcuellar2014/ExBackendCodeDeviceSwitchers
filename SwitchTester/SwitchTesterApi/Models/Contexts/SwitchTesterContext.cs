@@ -3,15 +3,8 @@ using Microsoft.Extensions.Configuration;
 
 namespace SwitchTesterApi.Models.Contexts
 {
-    public class SwitchTesterContext : DbContext, ISwitchTesterContext
+    public class SwitchTesterContext(IConfiguration configuration) : DbContext, ISwitchTesterContext
     {
-        private readonly IConfiguration configuration;
-
-        public SwitchTesterContext(IConfiguration configuration)
-        {
-            this.configuration = configuration;
-        }
-
         public DbSet<Switch> Switches { get; set; }
         public DbSet<Device> Devices { get; set; }
         public DbSet<SwitchPort> SwitchPorts { get; set; }
