@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwitchTesterApi", "SwitchTesterApi\SwitchTesterApi.csproj", "{5FB8B84C-7D86-40E2-8FF7-8F3D63039101}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwitchTesterApi", "SwitchTesterApi\SwitchTesterApi.csproj", "{5FB8B84C-7D86-40E2-8FF7-8F3D63039101}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwitchTesterTests", "SwitchTesterTests\SwitchTesterTests.csproj", "{D18DFD1C-8567-42E6-A55D-836B771C4CC2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{5FB8B84C-7D86-40E2-8FF7-8F3D63039101}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5FB8B84C-7D86-40E2-8FF7-8F3D63039101}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5FB8B84C-7D86-40E2-8FF7-8F3D63039101}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D18DFD1C-8567-42E6-A55D-836B771C4CC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D18DFD1C-8567-42E6-A55D-836B771C4CC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D18DFD1C-8567-42E6-A55D-836B771C4CC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D18DFD1C-8567-42E6-A55D-836B771C4CC2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
