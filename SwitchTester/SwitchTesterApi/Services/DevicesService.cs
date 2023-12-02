@@ -4,15 +4,8 @@ using SwitchTesterApi.Models.Contexts;
 
 namespace SwitchTesterApi.Services
 {
-    public class DevicesService : IDevicesService
+    public class DevicesService(ISwitchTesterContext context) : IDevicesService
     {
-        private readonly ISwitchTesterContext context;
-
-        public DevicesService(ISwitchTesterContext context)
-        {
-            this.context = context;
-        }
-
         public async Task<List<DeviceSwitchConnectionsDTO>> GetDeviceConnectedAsync()
         {
             var response = new List<DeviceSwitchConnectionsDTO>();
@@ -42,7 +35,7 @@ namespace SwitchTesterApi.Services
                 {
                     DeviceId = group.Key.DeviceId,
                     HostName = group.Key.DeviceHostName,
-                    Switches = new List<SwitchConnectedDTO>()
+                    Switches = []
                 };
 
                 foreach (var s in group)

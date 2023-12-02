@@ -5,15 +5,8 @@ using SwitchTesterApi.Models.Contexts;
 
 namespace SwitchTesterApi.Services
 {
-    public class SwitchesService : ISwitchesService
+    public class SwitchesService(ISwitchTesterContext context) : ISwitchesService
     {
-        private readonly ISwitchTesterContext context;
-
-        public SwitchesService(ISwitchTesterContext context)
-        {
-            this.context = context;
-        }
-
         public async Task<List<SwitchDeviceConnectionsDTO>> GetSwitchConnectedAsync()
         {
             var response = new List<SwitchDeviceConnectionsDTO>();
@@ -43,7 +36,7 @@ namespace SwitchTesterApi.Services
                 {
                     SwitchId = group.Key.SwitchId,
                     HostName = group.Key.SwitchHostName,
-                    Devices = new List<DeviceConnectedDTO>()
+                    Devices = []
                 };
 
                 foreach (var s in group)
@@ -64,8 +57,8 @@ namespace SwitchTesterApi.Services
             return response;
         }
 
-        public async Task ConnectDeviceToSwitchAsync(int switchId, int deviceId, PortsDTO portsDTO) {
-
+        public async Task ConnectDeviceToSwitchAsync(int switchId, int deviceId, PortsDTO portsDTO)
+        {
             var ports = portsDTO.Ports;
 
             await ValidateDevicePorts(deviceId, ports);
@@ -79,7 +72,16 @@ namespace SwitchTesterApi.Services
                     Port = port
                 };
 
-                context.DeviceSwitchConnections.Add(newConnection);
+                try
+                {
+                    context.DeviceSwitchConnections.Add(newConnection);
+                }
+                catch (Exception)
+                {
+                    throw new ArgumentOutOfRangeException(
+                        nameof(portsDTO), "The switch does not support more than one device connection per port.");
+                }
+                
             }
 
             await context.SaveChangesAsync();
@@ -87,7 +89,7 @@ namespace SwitchTesterApi.Services
 
         public async Task DisconnectDeviceToSwitchAsync(int switchId, int deviceId, PortsDTO? portsDTO)
         {
-            List<int> ports = portsDTO?.Ports ?? new List<int>();
+            List<int> ports = portsDTO?.Ports ?? [];
 
             var queryConnections = context.DeviceSwitchConnections.Where(c => c.SwitchId.Equals(switchId) && c.DeviceId.Equals(deviceId));
 

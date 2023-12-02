@@ -2,9 +2,9 @@
 {
     public class JwtConfiguration
     {
-        public required string Issuer { get; set; }
-        public required string Audience { get; set; }
-        public required string SecretKey { get; set; }
-        public double HoursLife { get; set; }
+        public virtual required string Issuer { get; set; }
+        public virtual required string Audience { get; set; }
+        public virtual required string SecretKey { get; set; }
+        public virtual double HoursLife { get; set; }
     }
 }

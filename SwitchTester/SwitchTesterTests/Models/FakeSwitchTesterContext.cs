@@ -1,9 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace SwitchTesterApi.Models.Contexts
 {
-    public class SwitchTesterContext(IConfiguration configuration) : DbContext, ISwitchTesterContext
+    public class FakeSwitchTesterContext : DbContext, ISwitchTesterContext
     {
         public DbSet<Switch> Switches { get; set; }
         public DbSet<Device> Devices { get; set; }
@@ -14,7 +13,7 @@ namespace SwitchTesterApi.Models.Contexts
         public async Task SaveChangesAsync() => await base.SaveChangesAsync();
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-             => optionsBuilder.UseSqlite(configuration.GetConnectionString("sqlite"));
+             => optionsBuilder.UseInMemoryDatabase("FakeDb");
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -26,6 +25,12 @@ namespace SwitchTesterApi.Models.Contexts
 
             modelBuilder.Entity<SwitchPort>()
                 .HasKey(o => new { o.SwitchId, o.Port });
+        }
+
+        public override void Dispose()
+        {
+            this.Database.EnsureDeleted();
+            base.Dispose();
         }
     }
 }

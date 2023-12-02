@@ -10,8 +10,6 @@ namespace SwitchTesterApi.Controllers
     [ApiController]
     public class SwitchesController(ISwitchesService service) : ControllerBase
     {
-        private readonly ISwitchesService service = service;
-
         [HttpGet]
         public async Task<ActionResult<SwitchDeviceConnectionsDTO>> GetAsync()
         {

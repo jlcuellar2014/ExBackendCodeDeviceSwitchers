@@ -7,8 +7,6 @@ namespace SwitchTesterApi.Services
 {
     public class UsersService(ISecurityContext context) : IUsersService
     {
-        private readonly ISecurityContext context = context;
-
         public async Task CreateUserAsync(UserCreateDTO userDTO)
         {
             UserHelpers.CheckUserNameFormat(userDTO.UserName);

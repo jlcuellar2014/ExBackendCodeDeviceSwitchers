@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 
-internal static partial class UserHelpers
+public static partial class UserHelpers
 {
     public static void CheckIfPasswordCorrect(string enteredPassword, byte[] storedSalt, byte[] storedPasswordHash)
     {
@@ -33,6 +33,8 @@ internal static partial class UserHelpers
 
     public static byte[] GeneratePasswordHash(string password, byte[] salt)
     {
+        ArgumentException.ThrowIfNullOrEmpty(password, nameof(password));
+
         using var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000, HashAlgorithmName.SHA256);
 
         return pbkdf2.GetBytes(32);
