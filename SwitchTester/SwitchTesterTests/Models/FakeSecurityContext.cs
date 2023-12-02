@@ -11,9 +11,7 @@ namespace SwitchTesterTests.Models
         public async Task SaveChangesAsync() => await base.SaveChangesAsync();
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseInMemoryDatabase("FakeDb");
-        }
+            => optionsBuilder.UseInMemoryDatabase("FakeDb");
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
