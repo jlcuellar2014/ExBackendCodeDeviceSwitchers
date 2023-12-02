@@ -13,9 +13,6 @@ namespace SwitchTesterApi.Services
 {
     public class SecurityService(ISecurityContext context, IOptions<JwtConfiguration> jwtConfigs) : ISecurityService
     {
-        private readonly ISecurityContext context = context;
-        private readonly IOptions<JwtConfiguration> jwtConfigs = jwtConfigs;
-
         public async Task<string> LoginUserAsync(UserLoginDTO userDTO)
         {
             var userDb = await context.ApplicationUsers

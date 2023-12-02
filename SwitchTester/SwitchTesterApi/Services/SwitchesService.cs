@@ -5,15 +5,8 @@ using SwitchTesterApi.Models.Contexts;
 
 namespace SwitchTesterApi.Services
 {
-    public class SwitchesService : ISwitchesService
+    public class SwitchesService(ISwitchTesterContext context) : ISwitchesService
     {
-        private readonly ISwitchTesterContext context;
-
-        public SwitchesService(ISwitchTesterContext context)
-        {
-            this.context = context;
-        }
-
         public async Task<List<SwitchDeviceConnectionsDTO>> GetSwitchConnectedAsync()
         {
             var response = new List<SwitchDeviceConnectionsDTO>();
