@@ -21,7 +21,7 @@ namespace Tests.Services
             var userDTO = new UserUpdateDTO
             {
                 UserName = "ExistingUser",
-                OldPassword = "correctPassword",
+                Password = "correctPassword",
                 NewPassword = "NewP@ssword456"
             };
 
@@ -51,7 +51,7 @@ namespace Tests.Services
             var userDTO = new UserUpdateDTO
             {
                 UserName = "NonExistingUser",
-                OldPassword = "OldP@ssword123",
+                Password = "OldP@ssword123",
                 NewPassword = "NewP@ssword456"
             };
 
@@ -74,7 +74,7 @@ namespace Tests.Services
             var userDTO = new UserUpdateDTO
             {
                 UserName = "ExistingUser",
-                OldPassword = "IncorrectOldPassword",
+                Password = "IncorrectOldPassword",
                 NewPassword = "NewP@ssword456"
             };
 

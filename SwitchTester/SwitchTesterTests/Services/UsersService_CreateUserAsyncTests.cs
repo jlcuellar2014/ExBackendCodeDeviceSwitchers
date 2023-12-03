@@ -4,6 +4,7 @@ using SwitchTesterApi.DTOs;
 using SwitchTesterApi.Models;
 using SwitchTesterApi.Models.Contexts;
 using SwitchTesterApi.Services;
+using SwitchTesterTests.Models;
 
 namespace Tests.Services
 {
@@ -53,6 +54,31 @@ namespace Tests.Services
                 => await userService.CreateUserAsync(userDTO));
 
             Assert.That(ex.Message, Does.Contain("The username does not comply with established policies"));
+        }
+
+        [Test]
+        public async Task UserNameUsed_ThrowsArgumentExceptionAsync()
+        {
+            // Arrange
+            var userNameUsed = "UserNameUsed";
+
+            var userDTO = new UserCreateDTO
+            {
+                UserName = userNameUsed,
+                Password = "StrongP@ssword123"
+            };
+
+            using var fakeContext = new FakeSecurityContext();
+            var userService = new UsersService(fakeContext);
+
+            fakeContext.ApplicationUsers.Add(new() { UserName = userNameUsed, PasswordHash = new byte[32], Salt = new byte[16] });
+            await fakeContext.SaveChangesAsync();
+
+            // Act & Assert
+            var ex = Assert.ThrowsAsync<ArgumentException>(async ()
+                => await userService.CreateUserAsync(userDTO));
+
+            Assert.That(ex.Message, Does.Contain("The username is already in use"));
         }
 
         [Test]

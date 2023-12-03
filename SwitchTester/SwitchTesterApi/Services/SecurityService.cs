@@ -11,8 +11,17 @@ using System.Text;
 
 namespace SwitchTesterApi.Services
 {
+    /// <summary>
+    /// Service responsible for handling security-related operations, such as user authentication.
+    /// </summary>
     public class SecurityService(ISecurityContext context, IOptions<JwtConfiguration> jwtConfigs) : ISecurityService
     {
+        /// <summary>
+        /// Attempts to log in a user based on the provided user login data.
+        /// </summary>
+        /// <param name="userDTO">The user login data.</param>
+        /// <returns>The generated authentication token upon successful login.</returns>
+        /// <exception cref="ArgumentException">Thrown if the user does not exist in the system.</exception>
         public async Task<string> LoginUserAsync(UserLoginDTO userDTO)
         {
             var userDb = await context.ApplicationUsers

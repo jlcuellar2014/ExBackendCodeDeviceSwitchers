@@ -5,8 +5,15 @@ using SwitchTesterApi.Models.Contexts;
 
 namespace SwitchTesterApi.Services
 {
+    /// <summary>
+    /// Service responsible for handling operations related to switches and their connections.
+    /// </summary>
     public class SwitchesService(ISwitchTesterContext context) : ISwitchesService
     {
+        /// <summary>
+        /// Retrieves information about connected devices grouped by switches.
+        /// </summary>
+        /// <returns>A list of switch device connections.</returns>
         public async Task<List<SwitchDeviceConnectionsDTO>> GetSwitchConnectedAsync()
         {
             var response = new List<SwitchDeviceConnectionsDTO>();
@@ -59,6 +66,15 @@ namespace SwitchTesterApi.Services
             return response;
         }
 
+        /// <summary>
+        /// Connects a device to a switch with specified ports.
+        /// </summary>
+        /// <param name="switchId">The ID of the switch.</param>
+        /// <param name="deviceId">The ID of the device.</param>
+        /// <param name="portsDTO">The ports DTO containing the ports to be connected.</param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown if the switch does not support more than one device connection per port.
+        /// </exception>
         public async Task ConnectDeviceToSwitchAsync(int switchId, int deviceId, PortsDTO portsDTO)
         {
             var ports = portsDTO.Ports;
@@ -88,6 +104,12 @@ namespace SwitchTesterApi.Services
             await context.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Disconnects a device from a switch with specified ports.
+        /// </summary>
+        /// <param name="switchId">The ID of the switch.</param>
+        /// <param name="deviceId">The ID of the device.</param>
+        /// <param name="portsDTO">The optional ports DTO containing the ports to be disconnected.</param>
         public async Task DisconnectDeviceToSwitchAsync(int switchId, int deviceId, PortsDTO? portsDTO)
         {
             List<int> ports = portsDTO?.Ports ?? [];

@@ -4,8 +4,15 @@ using SwitchTesterApi.Models.Contexts;
 
 namespace SwitchTesterApi.Services
 {
+    /// <summary>
+    /// Service class responsible for handling operations related to devices.
+    /// </summary>
     public class DevicesService(ISwitchTesterContext context) : IDevicesService
     {
+        /// <summary>
+        /// Retrieves a list of device-switch connections with associated information.
+        /// </summary>
+        /// <returns>A list of <see cref="DeviceSwitchConnectionsDTO"/> representing device-switch connections.</returns>
         public async Task<List<DeviceSwitchConnectionsDTO>> GetDeviceConnectedAsync()
         {
             var response = new List<DeviceSwitchConnectionsDTO>();
@@ -33,7 +40,7 @@ namespace SwitchTesterApi.Services
                 foreach (var s in r.Switches.GroupBy(x => x.SwitchId))
                 {
                     if (!switchNames.TryGetValue(s.Key, out string? switchHostName)) {
-                        
+
                         var switchDb = await context.Switches.FirstOrDefaultAsync(x => x.SwitchId.Equals(s.Key));
 
                         switchHostName = switchDb?.HostName ?? string.Empty;
