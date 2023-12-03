@@ -6,7 +6,7 @@ using SwitchTesterApi.Services;
 namespace Tests.Services
 {
     [TestFixture]
-    public class SwitchesService_ConnectDeviceToSwitchAsync
+    public class SwitchesService_ConnectDeviceToSwitchAsyncTests
     {
         [Test]
         public async Task ValidData_ConnectsDeviceToSwitch()
