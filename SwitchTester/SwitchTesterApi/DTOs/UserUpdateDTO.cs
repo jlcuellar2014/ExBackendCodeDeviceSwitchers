@@ -1,6 +1,6 @@
 ﻿namespace SwitchTesterApi.DTOs
 {
-    public class ApplicationUserUpdateDTO
+    public class UserUpdateDTO
     {
         public required string UserName { get; set; }
         public required string OldPassword { get; set; }
