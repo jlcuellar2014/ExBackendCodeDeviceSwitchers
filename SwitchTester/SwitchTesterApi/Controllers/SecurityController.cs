@@ -39,7 +39,11 @@ namespace SwitchTesterApi.Controllers
                 var token = await service.LoginUserAsync(userDTO);
                 return Ok(new UserLoginResponseDTO { Token = token });
             }
-            catch (Exception)
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new BadRequestResponseDTO { Message = ex.Message });
+            }
+            catch (Exception e)
             {
                 return BadRequest(new BadRequestResponseDTO());
             }

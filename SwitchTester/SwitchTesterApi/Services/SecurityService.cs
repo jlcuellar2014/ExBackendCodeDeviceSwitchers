@@ -26,7 +26,7 @@ namespace SwitchTesterApi.Services
         {
             var userDb = await context.ApplicationUsers
                                 .FirstOrDefaultAsync(u => u.UserName.Equals(userDTO.UserName)) ?? 
-                                    throw new ArgumentException("The user does not exist in the system.", nameof(userDTO));
+                                    throw new ArgumentException("The user does not exist in the system.", nameof(userDTO.UserName));
 
             UserHelpers.CheckIfPasswordCorrect(userDTO.Password, userDb.Salt, userDb.PasswordHash);
 
