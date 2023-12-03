@@ -1,4 +1,4 @@
-﻿namespace Tests.Helpers
+﻿namespace SwitchTesterUnitTests.Helpers
 {
     [TestFixture]
     public class UserHelpers_CheckPasswordFormatTests

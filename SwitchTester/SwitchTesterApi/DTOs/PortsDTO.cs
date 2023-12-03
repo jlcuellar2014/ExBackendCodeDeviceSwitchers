@@ -8,6 +8,6 @@
         /// <summary>
         /// Gets or sets the list of ports associated with the DTO.
         /// </summary>
-        public List<int> Ports { get; set; } = new List<int>();
+        public List<int> Ports { get; set; } = [];
     }
 }

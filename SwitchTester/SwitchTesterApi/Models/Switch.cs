@@ -18,11 +18,11 @@
         /// <summary>
         /// Gets or sets the list of ports associated with the switch.
         /// </summary>
-        public List<SwitchPort> Ports { get; set; } = new List<SwitchPort>();
+        public List<SwitchPort> Ports { get; set; } = [];
 
         /// <summary>
         /// Gets or sets the list of device-switch connections associated with the switch.
         /// </summary>
-        public List<DeviceSwitchConnection> Connections { get; set; } = new List<DeviceSwitchConnection>();
+        public List<DeviceSwitchConnection> Connections { get; set; } = [];
     }
 }

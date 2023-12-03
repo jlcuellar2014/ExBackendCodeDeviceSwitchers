@@ -6,7 +6,7 @@ using SwitchTesterApi.Models.Contexts;
 using SwitchTesterApi.Services;
 using SwitchTesterTests.Models;
 
-namespace Tests.Services
+namespace SwitchTesterUnitTests.Services
 {
     [TestFixture]
     public class UsersService_CreateUserAsyncTests

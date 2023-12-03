@@ -2,7 +2,7 @@
 using SwitchTesterApi.Models.Contexts;
 using SwitchTesterApi.Services;
 
-namespace Tests.Services
+namespace SwitchTesterUnitTests.Services
 {
     [TestFixture]
     public class SwitchesService_GetSwitchConnectedAsyncTests

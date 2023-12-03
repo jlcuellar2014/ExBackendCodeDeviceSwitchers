@@ -1,13 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Moq;
-using SwitchTesterApi.DTOs;
+﻿using SwitchTesterApi.DTOs;
 using SwitchTesterApi.Models;
-using SwitchTesterApi.Models.Contexts;
 using SwitchTesterApi.Services;
 using SwitchTesterTests.Models;
-using System.Linq.Expressions;
 
-namespace Tests.Services
+namespace SwitchTesterUnitTests.Services
 {
     [TestFixture]
     public class UsersService_UpdateUserAsyncTests

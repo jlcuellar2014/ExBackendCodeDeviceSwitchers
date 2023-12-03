@@ -6,7 +6,7 @@ using SwitchTesterApi.Services;
 using SwitchTesterApi.Settings;
 using SwitchTesterTests.Models;
 
-namespace Tests.Services
+namespace SwitchTesterUnitTests.Services
 {
     [TestFixture]
     public class SecurityService_LoginUserAsyncTests
