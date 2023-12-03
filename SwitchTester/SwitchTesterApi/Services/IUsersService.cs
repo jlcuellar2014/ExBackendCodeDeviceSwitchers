@@ -5,6 +5,6 @@ namespace SwitchTesterApi.Services
     public interface IUsersService
     {
         Task CreateUserAsync(UserCreateDTO userDTO);
-        Task UpdateUserAsync(ApplicationUserUpdateDTO userDTO);
+        Task UpdateUserAsync(UserUpdateDTO userDTO);
     }
 }

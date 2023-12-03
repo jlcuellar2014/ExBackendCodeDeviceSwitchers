@@ -25,7 +25,7 @@ namespace SwitchTesterApi.Controllers
         }
 
         [HttpPatch]
-        public async Task<IActionResult> UpdateUserAsync(ApplicationUserUpdateDTO userDTO)
+        public async Task<IActionResult> UpdateUserAsync(UserUpdateDTO userDTO)
         {
             try
             {

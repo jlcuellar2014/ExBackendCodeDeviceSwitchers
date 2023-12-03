@@ -27,7 +27,7 @@ namespace SwitchTesterApi.Services
             await context.SaveChangesAsync();
         }
 
-        public async Task UpdateUserAsync(ApplicationUserUpdateDTO userDTO)
+        public async Task UpdateUserAsync(UserUpdateDTO userDTO)
         {
             UserHelpers.CheckPasswordFormat(userDTO.NewPassword);
 

@@ -18,7 +18,7 @@ namespace Tests.Services
             // Arrange
             using var context = new FakeSecurityContext();
 
-            var userDTO = new ApplicationUserUpdateDTO
+            var userDTO = new UserUpdateDTO
             {
                 UserName = "ExistingUser",
                 OldPassword = "correctPassword",
@@ -48,7 +48,7 @@ namespace Tests.Services
             // Arrange
             using var context = new FakeSecurityContext();
 
-            var userDTO = new ApplicationUserUpdateDTO
+            var userDTO = new UserUpdateDTO
             {
                 UserName = "NonExistingUser",
                 OldPassword = "OldP@ssword123",
@@ -71,7 +71,7 @@ namespace Tests.Services
             // Arrange
             using var context = new FakeSecurityContext();
 
-            var userDTO = new ApplicationUserUpdateDTO
+            var userDTO = new UserUpdateDTO
             {
                 UserName = "ExistingUser",
                 OldPassword = "IncorrectOldPassword",
