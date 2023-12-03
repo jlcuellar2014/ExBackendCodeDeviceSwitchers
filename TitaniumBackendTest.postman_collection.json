@@ -1,0 +1,232 @@
+{
+	"info": {
+		"_postman_id": "23136568-e922-4486-b8fc-f3759f995b74",
+		"name": "TitaniumBackendTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7404597"
+	},
+	"item": [
+		{
+			"name": "GetDevices",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "GetSwitches",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "ConnectDeviceSwitcher",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ports\": [\r\n    5101, 5102\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44343/api/Switches/{{switchId}}/connect-device/{{deviceId}}",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44343",
+					"path": [
+						"api",
+						"Switches",
+						"{{switchId}}",
+						"connect-device",
+						"{{deviceId}}"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DisconnectDeviceSwitcher",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ports\": [\r\n    6101\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44343/api/Switches/{{switchId }}/connect-device/{{deviceId}}",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44343",
+					"path": [
+						"api",
+						"Switches",
+						"{{switchId }}",
+						"connect-device",
+						"{{deviceId}}"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userName\": \"Jade2017\",\r\n  \"password\": \"aB*25daaas\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44343/api/Users",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44343",
+					"path": [
+						"api",
+						"Users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userName\": \"Jade2017\",\r\n  \"password\": \"aB*25daaas\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44343/api/Security/login",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44343",
+					"path": [
+						"api",
+						"Security",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EdithUser",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userName\": \"Jade2016\",\r\n  \"oldPassword\": \"aB*25daaas\",\r\n  \"newPassword\": \"aB*25daaas\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44343/api/Users",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44343",
+					"path": [
+						"api",
+						"Users"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkpvcmdlIiwiVG9rZW5JZCI6IjkxNTY3YjM2LWEyMDUtNGJiZi1hYjgyLTU1MmExOGNiMmY1YSIsIm5iZiI6MTcwMTU2MzI5NywiZXhwIjoxNzAxODIyNDk3LCJpYXQiOjE3MDE1NjMyOTcsImlzcyI6IlRpdGFuaXVtIEluZHVzdHJpYWwgU2VjdXJpdHkiLCJhdWQiOiJTd2l0Y2hUZXN0ZXJBcGkifQ.JY6opLcYtZVO7ogCDWRb0I6o8VZZsehbNMsgdkOApso",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "switchId ",
+			"value": "1"
+		},
+		{
+			"key": "deviceId",
+			"value": "1"
+		}
+	]
+}
