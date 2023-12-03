@@ -5,14 +5,14 @@ using SwitchTesterApi.Services;
 namespace Tests.Services
 {
     [TestFixture]
-    public class SwitchesService_GetSwitchConnectedAsyncTests
+    public class DevicesService_GetDeviceConnectedAsyncTests
     {
         [Test]
         public async Task ReturnsSwitchDeviceConnectionsDTOList()
         {
             // Arrange
             using var fakeContext = new FakeSwitchTesterContext();
-            var switchesService = new SwitchesService(fakeContext);
+            var devicesService = new DevicesService(fakeContext);
 
             fakeContext.Devices.Add(new Device
             {
@@ -45,7 +45,7 @@ namespace Tests.Services
             await fakeContext.SaveChangesAsync();
 
             // Act
-            var result = await switchesService.GetSwitchConnectedAsync();
+            var result = await devicesService.GetDeviceConnectedAsync();
 
             // Assert
             Assert.Multiple(() => {

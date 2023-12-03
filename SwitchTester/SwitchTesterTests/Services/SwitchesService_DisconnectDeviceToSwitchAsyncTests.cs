@@ -6,7 +6,7 @@ using SwitchTesterApi.Services;
 namespace Tests.Services
 {
     [TestFixture]
-    public class SwitchesService_DisconnectDeviceToSwitchAsync
+    public class SwitchesService_DisconnectDeviceToSwitchAsyncTests
     {
         [Test]
         public async Task NoSpecificPorts_DisconnectsDeviceFromSwitch()

@@ -83,7 +83,6 @@ namespace SwitchTesterApi.Services
                     throw new ArgumentOutOfRangeException(
                         nameof(portsDTO), "The switch does not support more than one device connection per port.");
                 }
-                
             }
 
             await context.SaveChangesAsync();
