@@ -43,7 +43,7 @@ namespace SwitchTesterApi.Controllers
             {
                 return BadRequest(new BadRequestResponseDTO { Message = ex.Message });
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return BadRequest(new BadRequestResponseDTO());
             }
