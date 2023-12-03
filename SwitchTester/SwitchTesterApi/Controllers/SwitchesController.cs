@@ -11,6 +11,7 @@ namespace SwitchTesterApi.Controllers
     public class SwitchesController(ISwitchesService service) : ControllerBase
     {
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<SwitchDeviceConnectionsDTO>> GetAsync()
         {
             try
