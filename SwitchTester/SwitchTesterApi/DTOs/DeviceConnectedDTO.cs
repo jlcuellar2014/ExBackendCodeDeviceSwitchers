@@ -4,6 +4,6 @@
     {
         public int DeviceId { get; set; }
         public required string HostName { get; set; }
-        public int Port { get; set; }
+        public List<int>? Ports { get; set; }
     }
 }

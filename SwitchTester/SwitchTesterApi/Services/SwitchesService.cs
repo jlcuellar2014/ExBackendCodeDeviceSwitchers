@@ -10,42 +10,44 @@ namespace SwitchTesterApi.Services
         public async Task<List<SwitchDeviceConnectionsDTO>> GetSwitchConnectedAsync()
         {
             var response = new List<SwitchDeviceConnectionsDTO>();
+
             var query = from c in context.DeviceSwitchConnections
-                        join s in context.Switches on c.SwitchId equals s.SwitchId
-                        join d in context.Devices on c.DeviceId equals d.DeviceId
+                        group c by c.SwitchId into g
                         select new
                         {
-                            SwitchId = c.SwitchId,
-                            SwitchHostName = s.HostName,
-                            DeviceId = c.DeviceId,
-                            DeviceHostName = d.HostName,
-                            Port = c.Port
-                        }
-                        into selection
-                        group selection by new
-                        {
-                            selection.SwitchId,
-                            selection.SwitchHostName
+                            SwitchId = g.Key,
+                            SwitchHostName = context.Switches.First(x => x.SwitchId.Equals(g.Key)).HostName,
+                            Devices = g.Select(x => new { x.DeviceId, x.Port })
                         };
 
             var result = await query.ToListAsync();
+            var deviceNames = new Dictionary<int, string>();
 
-            foreach (var group in result)
+            foreach (var r in await query.ToListAsync())
             {
                 var newSwitch = new SwitchDeviceConnectionsDTO
                 {
-                    SwitchId = group.Key.SwitchId,
-                    HostName = group.Key.SwitchHostName,
+                    SwitchId = r.SwitchId,
+                    HostName = r.SwitchHostName,
                     Devices = []
                 };
 
-                foreach (var s in group)
+                foreach (var s in r.Devices.GroupBy(x => x.DeviceId))
                 {
+                    if (!deviceNames.TryGetValue(s.Key, out string? deviceHostName))
+                    {
+
+                        var deviceDb = await context.Devices.FirstOrDefaultAsync(x => x.DeviceId.Equals(s.Key));
+
+                        deviceHostName = deviceDb?.HostName ?? string.Empty;
+                        deviceNames.Add(s.Key, deviceHostName);
+                    }
+
                     var newDevice = new DeviceConnectedDTO
                     {
-                        DeviceId = s.DeviceId,
-                        HostName = s.DeviceHostName,
-                        Port = s.Port
+                        DeviceId = s.Key,
+                        HostName = deviceHostName,
+                        Ports = s.Select(x => x.Port).ToList()
                     };
 
                     newSwitch.Devices.Add(newDevice);

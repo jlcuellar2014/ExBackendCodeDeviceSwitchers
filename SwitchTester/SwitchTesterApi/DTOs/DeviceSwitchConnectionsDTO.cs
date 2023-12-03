@@ -4,6 +4,6 @@
     {
         public int DeviceId { get; set; }
         public required string HostName { get; set; }
-        public List<SwitchConnectedDTO> Switches { get; set; } = new List<SwitchConnectedDTO>();
+        public List<SwitchConnectedDTO>? Switches { get; set; }
     }
 }
