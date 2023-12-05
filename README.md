@@ -1,31 +1,28 @@
 # CodeChallenge Backend
 
-## Requisitos
+## Requirements
 
-Se requiere utilizar al menos estas tecnologías, pero el desarrollador es libre de utilizar todas las que considere necesarias.
+Developers are required to use the following technologies, but they are free to incorporate any additional technologies they find necessary:
 
-- dotnet core 6.X o superior
-- EF core 6.X o superior
-- JWT autentication (Bearer Authentication)
+- dotnet core 6.X or higher
+- EF core 6.X or higher
+- JWT authentication (Bearer Authentication)
 
-## Descrición del problema
+## Problem Description
 
-Se quiere disponer de una api que nos permita:
+The goal is to create an API that allows:
 
-- logarse en la applicación (obtención del JWT para Bearer Authentication)
-- consultar los dispositivos (con las conexiones que tengan)
-- consultar los switches (con los devices conectados que tengan)
-- connectar dispositivo a un switch (solo usuarios autenticados)
-- desconectar dispositivo de un switch (sólo usuarios autenticados)
+- Logging into the application (obtaining JWT for Bearer Authentication)
+- Querying devices (with their associated connections)
+- Querying switches (with connected devices)
+- Connecting a device to a switch (only for authenticated users)
+- Disconnecting a device from a switch (only for authenticated users)
 
-Los datos se han de persistir en una base de datos local, a elección del desarrollador, pero que al arrancar la aplicación, los datos anteriores se han de mantener.
-Se han de respetar la posibilidad de migraciones de datos.
-Todas las comunicaciones se enviaran y recibirán usando json.
-Sería deseable tener una buena documentación de los entrypoints, sus usos, ejemplos...
+Data must be persisted in a local database, at the discretion of the developer. Upon application startup, previous data must be maintained. Data migration capabilities should be respected. All communications will be sent and received using JSON. Comprehensive documentation for endpoints, their uses, and examples is highly desirable.
 
-### Modelos
+### Models
 
-Estos son los modelos mínimos que hay en la BBDD, pero se podrán crear todos aquellos que se consideren necesarios.
+The following are the minimum models expected in the database, but developers are free to create additional models as needed.
 
 Device:
 
@@ -39,14 +36,11 @@ Switch:
 - Hostname
 - PortList
 
-### Entrypoints
+### Endpoints
 
-Se implementarán, al menos, los siguientes entrypoints:
+The implementation should include, at a minimum, the following endpoints:
 
-- POST login
-- GET devices
-- GET switches
-- POST switches/<switch_id>/connect-device/<device_id>, con un body indicando los puertos que les conectarán.
-
-## Subida
-Para considerar entregado, haz un fork de este repositorio en tu cuenta, y da acceso al mismo a info@titaniumindustrialsecurity.com como colaborador para poder revisarlo.
+- POST /login
+- GET /devices
+- GET /switches
+- POST /switches/{switch_id}/connect-device/{device_id}, with a body indicating the ports to be connected.
